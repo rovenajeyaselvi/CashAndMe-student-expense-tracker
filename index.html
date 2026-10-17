@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Cashandme | Student Expense Tracker</title>
+</head>
+
+<body>
+
+    <div class="mood-overlay">
+        <div class="mood-popup">
+
+            <h2>What's the mood today?</h2>
+            <p>Choose the mood that feels like you.</p>
+
+            <div class="mood-options">
+
+                <button class="mood-button" id="happyButton">
+                    😊 Happy
+                </button>
+
+                <button class="mood-button" id="excellentButton">
+                    🤩 Excellent
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+        
+
+
+<main id="homepage" style="display: none;">
+<header class="cashandme-header">
+  <div class="brand">
+    <img src="logo.png" alt="Cashandme logo" class="brand-logo">
+    <h1>cashandme.</h1>
+  </div>
+
+  <button class="profile-button" onclick="toggleProfile()">
+    <img
+  id="profile-avatar"
+  class="profile-avatar"
+  src=""
+  alt="Profile picture"
+  style="display: none;"
+>
+<span id="profile-avatar-fallback" class="profile-avatar">👤</span>
+    <span>Profile</span>
+  </button>
+</header>
+
+<div id="profile-panel" class="profile-panel" style="display: none;">
+  <h2>Your Profile</h2>
+
+  <label for="profile-name">Your name</label>
+  <input id="profile-name" type="text" placeholder="Enter your name">
+
+  <label for="profile-picture">Profile picture</label>
+  <input id="profile-picture" type="file" accept="image/*">
+
+  <button onclick="saveProfile()">Save Profile</button>
+</div>
+
+
+  <p>Your money, your mood, your way. 💛</p>
+
+<!-- Notes Button -->
+<button id="notes-toggle" class="notes-toggle">
+  📝 Notes
+</button>
+
+<!-- Notes Panel -->
+<div id="notes-panel" class="notes-panel">
+  <div class="notes-header">
+    <h2>My Notes 📝</h2>
+    <button id="notes-close" class="notes-close">✕</button>
+  </div>
+
+  <textarea
+    id="notes-content"
+    placeholder="Write your thoughts, reminders, or money goals..."
+  ></textarea>
+
+  <button id="notes-save">Save Notes</button>
+  <p id="notes-status"></p>
+</div>
+
+
+  
+<!-- Cashandme Budget Limits -->
+<section class="budget-section">
+  <h2>My Budget 💰</h2>
+  <p>Set your spending limits to stay on track.</p>
+
+  <div class="budget-inputs">
+    <div class="budget-card">
+      <label for="monthlyBudget">Monthly Budget (₹)</label>
+      <input
+        type="number"
+        id="monthlyBudget"
+        placeholder="e.g. 10000"
+        min="0"
+        step="0.01"
+      >
+    </div>
+
+    <div class="budget-card">
+      <label for="weeklyBudget">Weekly Budget (₹)</label>
+      <input
+        type="number"
+        id="weeklyBudget"
+        placeholder="e.g. 2000"
+        min="0"
+        step="0.01"
+      >
+    </div>
+
+    <div class="budget-card">
+      <label for="dailyBudget">Daily Budget (₹)</label>
+      <input
+        type="number"
+        id="dailyBudget"
+        placeholder="e.g. 500"
+        min="0"
+        step="0.01"
+      >
+    </div>
+  </div>
+
+  <button type="button" id="saveBudgetButton">
+    Save My Budgets 💛
+  </button>
+
+  <p id="budgetMessage" role="status"></p>
+</section>
+<div class="expense-charts">
+    <div class="chart-card">
+      <h2>Monthly Expenses</h2>
+      <canvas id="monthlyChart"></canvas>
+      <p>Spent vs. Remaining</p>
+    </div>
+
+    <div class="chart-card">
+      <h2>Weekly Expenses</h2>
+      <canvas id="weeklyChart"></canvas>
+      <p>Spent vs. Remaining</p>
+    </div>
+
+    <div class="chart-card">
+      <h2>Today's Expenses</h2>
+      <canvas id="dailyChart"></canvas>
+      <p>Spent vs. Remaining</p>
+    </div>
+  </div>
+<!-- Add Expense Form -->
+<div class="expense-form">
+  <h2>Add a new expense 💸</h2>
+
+  <form id="expenseForm">
+    <label for="expenseName">Expense name</label>
+    <input
+      type="text"
+      id="expenseName"
+      placeholder="e.g. Lunch"
+      required
+    >
+
+    <label for="expenseAmount">Amount (₹)</label>
+    <input
+      type="number"
+      id="expenseAmount"
+      placeholder="e.g. 150"
+      min="0.01"
+      step="0.01"
+      required
+    >
+
+    <label for="expenseCategory">Category</label>
+    <select id="expenseCategory" required>
+      <option value="">Choose a category</option>
+      <option value="Food">Food</option>
+      <option value="Travel">Travel</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Education">Education</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <button type="submit">Add Expense +</button>
+  </form>
+
+<!-- AI Expense Assistant -->
+<div class="ai-expense-assistant">
+  <h2>AI Expense Assistant ✨</h2>
+  <p>Tell me what you spent, and I'll fill in the details.</p>
+
+  <textarea
+    id="aiExpenseInput"
+    placeholder="e.g. I spent ₹120 on lunch today."
+    rows="3"
+  ></textarea>
+
+  <button type="button" id="aiExpenseButton">
+    Fill Expense Form ✨
+  </button>
+
+  <p id="aiExpenseMessage"></p>
+</div>
+<!-- Expense List -->
+<div class="expense-list">
+  <h2>Your Expenses 💸</h2>
+  <ul id="expenseList"></ul>
+</div>
+
+</div>
+
+</main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    
+    
+<script>
+function toggleProfile() {
+  const panel = document.getElementById("profile-panel");
+
+  if (!panel) {
+    alert("Profile panel not found.");
+    return;
+  }
+
+  panel.style.display =
+    panel.style.display === "none" ? "block" : "none";
+}
+
+
+function saveProfile() {
+  const nameInput = document.getElementById("profile-name");
+  const pictureInput = document.getElementById("profile-picture");
+
+  const name = nameInput.value.trim();
+  const file = pictureInput.files[0];
+
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  localStorage.setItem("cashandme-profile-name", name);
+
+  function finishSavingProfile() {
+  loadProfile();
+  alert("Profile saved!");
+  toggleProfile();
+}
+
+  if (file) {
+    if (!file.type.startsWith("image/")) {
+      alert("Please choose an image file.");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      try {
+        localStorage.setItem("cashandme-profile-picture", reader.result);
+        finishSavingProfile();
+      } catch (error) {
+        alert("The picture could not be saved. Please try a smaller image.");
+      }
+    };
+
+    reader.onerror = function () {
+      alert("Could not read the selected picture.");
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    finishSavingProfile();
+  }
+}
+
+function loadProfile() {
+  const name = localStorage.getItem("cashandme-profile-name");
+  const picture = localStorage.getItem("cashandme-profile-picture");
+
+  const nameInput = document.getElementById("profile-name");
+  const avatar = document.getElementById("profile-avatar");
+  const fallback = document.getElementById("profile-avatar-fallback");
+
+  if (name && nameInput) {
+    nameInput.value = name;
+  }
+
+  if (picture && avatar && fallback) {
+    avatar.src = picture;
+    avatar.style.display = "inline-block";
+    fallback.style.display = "none";
+  } else if (avatar && fallback) {
+    avatar.style.display = "none";
+    fallback.style.display = "inline-block";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadProfile);
+
+const notesPanel = document.getElementById("notes-panel");
+const notesToggle = document.getElementById("notes-toggle");
+const notesClose = document.getElementById("notes-close");
+const notesContent = document.getElementById("notes-content");
+const notesSave = document.getElementById("notes-save");
+const notesStatus = document.getElementById("notes-status");
+
+// Open the Notes Panel
+notesToggle.addEventListener("click", function () {
+  notesPanel.classList.add("open");
+});
+
+// Close the Notes Panel
+notesClose.addEventListener("click", function () {
+  notesPanel.classList.remove("open");
+});
+
+// Load saved notes
+const savedNotes = localStorage.getItem("cashandme-notes");
+
+if (savedNotes !== null) {
+  notesContent.value = savedNotes;
+}
+
+// Save notes
+notesSave.addEventListener("click", function () {
+  localStorage.setItem("cashandme-notes", notesContent.value);
+  notesStatus.textContent = "Notes saved! 💛";
+});
+
+</script>
+</body>
+
+</html>
+
