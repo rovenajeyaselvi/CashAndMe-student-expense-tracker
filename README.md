@@ -14,9 +14,28 @@ Features
 
 Screenshots
 
-Screenshots of the Cashandme interface will be added here.
+## Screenshots
 
-<!-- Add screenshots here after uploading them to the repository. -->
+### 1. Homepage
+![Cashandme Homepage](screenshots/homepage.png)
+
+### 2. Mood Selection
+![Cashandme Mood Selection](screenshots/mood.png)
+
+### 3. AI Assistant and Display Expenses
+![AI Assistant and Display Expenses](<screenshots/AI Assistant and display expenses.png>)
+
+### 4. Add a New Expense
+![Add a New Expense](<screenshots/add an new expense.png>)
+
+### 5. Notes Panel
+![Cashandme Notes](screenshots/notes.png)
+
+### 6. Pie Charts
+![Cashandme Pie Charts](<screenshots/pie charts.png>)
+
+### 7. Profile
+![Cashandme Profile](screenshots/profile.png)
 
 Tech Stack
 
