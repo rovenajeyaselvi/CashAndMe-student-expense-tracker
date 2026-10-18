@@ -1,5 +1,9 @@
 Cashandme — Student Expense Tracker 💛
 
+## 🌐 Live Website
+
+**Try Cashandme here:** https://cashandme.vercel.app
+
 Cashandme is a student-focused expense tracker designed to make managing money simpler and more engaging. It helps students record expenses, manage budgets, and keep track of their spending.
 
 Features
