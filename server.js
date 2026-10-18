@@ -1,4 +1,4 @@
-
+const path = require("path");
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
@@ -12,7 +12,7 @@ const PORT = 3000;
 app.use(express.json());
 
 // Serve your existing Cashandme website
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "public")));
 console.log(
   "Gemini API key loaded:",
   Boolean(process.env.GEMINI_API_KEY)
